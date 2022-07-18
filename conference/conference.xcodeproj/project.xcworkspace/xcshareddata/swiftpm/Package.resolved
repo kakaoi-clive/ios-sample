@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakaoi-clive/ios-sdk.git",
+      "state" : {
+        "revision" : "e61107ad39098209a116f0686d1e91e5e9df622e",
+        "version" : "2.2.0-b2"
+      }
+    },
+    {
+      "identity" : "ios-webrtc-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kakaoi-clive/ios-webrtc-sdk.git",
+      "state" : {
+        "revision" : "e25d9293426d61b1e50bbef23c8a99f63fa505f4",
+        "version" : "1.103.1"
+      }
+    }
+  ],
+  "version" : 2
+}
