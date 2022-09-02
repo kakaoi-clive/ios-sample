@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Hello View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="HelloViewController" customModule="hello" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Elt-zo-tyM">
+                                <rect key="frame" x="8" y="76" width="398" height="682"/>
+                                <subviews>
+                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8x-Bt-zzS" userLabel="LocalView" customClass="RenderView" customModule="hello" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="398" height="341"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="SSU-99-kcF" userLabel="RemoteView" customClass="RenderView" customModule="hello" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="349" width="398" height="333"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="L8x-Bt-zzS" firstAttribute="leading" secondItem="Elt-zo-tyM" secondAttribute="leading" id="Dbl-8M-QOv"/>
+                                    <constraint firstItem="SSU-99-kcF" firstAttribute="leading" secondItem="Elt-zo-tyM" secondAttribute="leading" id="Lhx-NR-EeC"/>
+                                    <constraint firstAttribute="trailing" secondItem="SSU-99-kcF" secondAttribute="trailing" id="OLh-0O-MPj"/>
+                                    <constraint firstAttribute="bottom" secondItem="SSU-99-kcF" secondAttribute="bottom" id="QZI-ob-b07"/>
+                                    <constraint firstItem="L8x-Bt-zzS" firstAttribute="bottom" secondItem="SSU-99-kcF" secondAttribute="top" constant="-8" id="ahd-cT-XQG"/>
+                                    <constraint firstItem="L8x-Bt-zzS" firstAttribute="top" secondItem="Elt-zo-tyM" secondAttribute="top" id="eqX-4g-R9U"/>
+                                    <constraint firstItem="L8x-Bt-zzS" firstAttribute="height" secondItem="Elt-zo-tyM" secondAttribute="height" multiplier="0.5" priority="999" id="t3h-rr-oK9"/>
+                                    <constraint firstAttribute="trailing" secondItem="L8x-Bt-zzS" secondAttribute="trailing" id="y6L-CV-9EB"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptT-nU-Wm8">
+                                <rect key="frame" x="147" y="790" width="120" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.090196078430000007" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Ajz-0t-Vwz"/>
+                                    <constraint firstAttribute="height" constant="50" id="ex1-o2-PtS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Join">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="onButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zrM-UH-0yt"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ptT-nU-Wm8" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="DTD-bH-XhN"/>
+                            <constraint firstItem="Elt-zo-tyM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="Hhj-Xb-Vhf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Elt-zo-tyM" secondAttribute="trailing" constant="8" id="Kvy-cm-YQX"/>
+                            <constraint firstItem="ptT-nU-Wm8" firstAttribute="top" secondItem="Elt-zo-tyM" secondAttribute="bottom" constant="32" id="To9-7d-8sB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ptT-nU-Wm8" secondAttribute="bottom" constant="22" id="oYH-8O-gm7"/>
+                            <constraint firstItem="Elt-zo-tyM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="s0H-cb-Kkz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="button" destination="ptT-nU-Wm8" id="TGq-ou-bXD"/>
+                        <outlet property="localView" destination="L8x-Bt-zzS" id="lRd-Pq-6Uq"/>
+                        <outlet property="remoteView" destination="SSU-99-kcF" id="By0-SJ-1m8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="28.985507246376812" y="83.705357142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
