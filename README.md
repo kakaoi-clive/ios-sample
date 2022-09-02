@@ -14,7 +14,7 @@
 - 배포방식: Swift Package Manager
 - Swift 최소 버전
 ```
-ConnectLive SDK 2.1.1 : Swift 5.6.1, Xcode : 13.4
+ConnectLive SDK 2.2.0 : Swift 5.6.1, Xcode : 13.4
 ```
 - bitcode 미지원
 
@@ -23,7 +23,7 @@ ConnectLive SDK 2.1.1 : Swift 5.6.1, Xcode : 13.4
 Xcode > File > Add Packages
 ```
 Name: ConnectLiveSDK
-Version Rules: 2.1.0 - Next Minor
+Version Rules: 2.2.0 - Next Minor
 Location: https://github.com/kakaoi-clive/ios-sdk.git
 ```
 
@@ -61,8 +61,7 @@ Room 에 연결하기 위해서는 인증이 필요합니다. 콘솔에서 발�
 
 ```
 ConnectLive.signIn( serviceId: String,
-                    key: String,
-                    secret: String,
+                    serviceSecret: String,
                     completion: @escaping ProvisionCallback)
 ```
 
@@ -87,8 +86,7 @@ import ConnectLiveSDK
 func signIn() {
     // 인증수행
     ConnectLive.signIn(serviceId: "serviceId",
-                       key: "serviceKey",
-                       secret: "secret") { [weak self] code, message in
+                       serviceSecret: "serviceSecret") { [weak self] code, message in
         if code == 0 {
             // 인증성공
         } else {
@@ -513,7 +511,7 @@ protocol RoomDelegate {
     /// 룸 연결 해제 이벤트
     ///
     /// 직접 연결을 해제한 경우와 오류로 연결이 해제된 경우 모두 이벤트가 발생합니다.
-    func onDisconnected()
+    func onDisconnected(reason: DisconnectReason)
      
     /// 에러 이벤트
     ///
