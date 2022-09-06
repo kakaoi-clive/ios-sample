@@ -104,7 +104,6 @@ iOS의 경우 os의 오디오 세션을 별도 설정해 주어야 합니다.
 ConnectLive.setAudioSessionConfiguration(category: AVAudioSession.Category,
                                          mode: AVAudioSession.Mode,
                                          options: AVAudioSession.CategoryOptions,
-                                         ioBufferDuration: TimeInterval = 0.06,
                                          delegate: AudioSessionDelegate? = nil)
 ```
 
@@ -307,7 +306,8 @@ func start(completion: @escaping (Error?) -> ())
 
 ### 로컬 미디어 중지
 ```
-func stop()
+func stop() async
+func stop(completion: @escaping () -> ())
 ```
 
 

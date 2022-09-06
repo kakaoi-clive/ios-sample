@@ -116,7 +116,7 @@ class Conference: ObservableObject {
         config.mediaOptions.fileName = "sample.mov"
 
 
-        guard let media = ConnectLive.createLocalMedia(options: config.mediaOptions) else {
+        guard let media = ConnectLive.createLocalMedia(config: config) else {
             assertionFailure("카메라 캡처러 생성 실패")
             return
         }
@@ -159,8 +159,12 @@ class Conference: ObservableObject {
 
         status = .disconnecting
 
-        // room 에서 퇴장합니다.
-        room?.disconnect()
+        Task {
+            await media?.stop()
+            
+            // room 에서 퇴장합니다.
+            room?.disconnect()
+        }
     }
 
 

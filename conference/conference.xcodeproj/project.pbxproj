@@ -680,8 +680,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakaoi-clive/ios-sdk.git";
 			requirement = {
-				kind = exactVersion;
-				version = "2.2.0-b2";
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
