@@ -121,7 +121,7 @@ class HelloViewController: UIViewController {
         config.mediaOptions.fileName = "test.mov"
 
 
-        guard let media = ConnectLive.createLocalMedia(options: config.mediaOptions) else {
+        guard let media = ConnectLive.createLocalMedia(config: config) else {
             assertionFailure("카메라 캡처러 생성 실패")
             return
         }
