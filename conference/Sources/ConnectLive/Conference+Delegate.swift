@@ -268,8 +268,25 @@ extension Conference: RoomDelegate {
 
 
     /// 메시지
-    func onUserMessage(senderId: String, message: String) {
+    func onUserMessage(senderId: String, message: String, type: String) {
         print("[onMessage]")
         receivedMessage = "[\(senderId)] \(message)"
+    }
+    
+    
+    @MainActor
+    func onStat(stat: QualityStat) {
+        var local: QualitySession?
+        var remote: QualitySession?
+        
+        for value in stat.sessions {
+            if value.direction == .up {
+                local = value
+            } else {
+                remote = value
+            }
+        }
+        
+        self.statistics.update(local: local, remote: remote)
     }
 }

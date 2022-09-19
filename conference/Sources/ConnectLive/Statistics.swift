@@ -85,6 +85,10 @@ class Statistics: ObservableObject {
             }
         }
 
+        if newData.isEmpty {
+            return
+        }
+        
         newData.sort {
             if $0.direction != $1.direction {
                 if $0.direction == .up {

@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kakaoi-clive/ios-sdk.git",
       "state" : {
-        "revision" : "111b4151f30e8e93c9150cf15c71a633bc0668d8",
-        "version" : "2.2.0"
+        "revision" : "420b939644cf0b5eb24288a1009274d476e797e5",
+        "version" : "2.2.1"
       }
     },
     {

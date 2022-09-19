@@ -48,7 +48,6 @@ class Conference: ObservableObject {
     let statistics: Statistics = Statistics()
 
     var levelTimer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
-    var statTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
 
     // 서비스에서 화면공유를 지원하는 경우 관련 값
     // 화면공유는 iOS 브로드캐스트 익스텐션을 사용하므로 앱그룹과 익스텐션의 번들id가 설정되어야 합니다.
@@ -321,7 +320,7 @@ class Conference: ObservableObject {
             guard let self = self else { return }
             guard let room = self.room else { return }
 
-            let result = await room.sendUserMessage(participantIds: participantIds, message: message)
+            let result = await room.sendUserMessage(targets: participantIds, message: message)
             switch result {
             case .success():
                 print("메시지 전송 성공")
@@ -385,21 +384,6 @@ class Conference: ObservableObject {
                     let local = self.media?.audioLevel ?? 0
                     let remote = await room.getAudioLevels()
                     await self.updateAudioLevel(local: local, remote: remote)
-                }
-            }
-            .store(in: &cancelBag)
-
-
-        statTimer.combineLatest($status.filter { $0 == .connected })
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                guard let room = self.room else { return }
-
-                Task {
-                    let local = await room.getLocalQualityStatsReport()
-                    let remote = await room.getRemoteQualityStatsReport()
-                    await self.statistics.update(local: local, remote: remote)
                 }
             }
             .store(in: &cancelBag)

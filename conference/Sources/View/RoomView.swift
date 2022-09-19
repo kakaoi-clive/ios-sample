@@ -17,7 +17,8 @@ struct RoomView: View {
     @State private var statsOpened: Bool = false
     @State private var page: Int = 0
     @State private var message: String = ""
-
+    @State private var selectedId: String = ""
+    
     init(renderer: Renderer, conference: Conference, currentView: Binding<CurrentView>) {
         print("[RoomView.init]")
         self.renderer = renderer
@@ -139,7 +140,12 @@ struct RoomView: View {
                             .frame(width: 80)
 
                         TextField("Message", text: $message, onCommit: {
-                            conference.sendMessage(participantIds: [], message: message)
+                            if selectedId == conference.myId || selectedId.isEmpty {
+                                conference.sendMessage(participantIds: [], message: message)
+                            } else {
+                                conference.sendMessage(participantIds: [selectedId], message: message)
+                            }
+                            
                             message = ""
                         })
                             .lineLimit(1)
@@ -148,6 +154,19 @@ struct RoomView: View {
                             .autocapitalization(.none)
                             .textFieldStyle(.roundedBorder)
 
+                        Picker("id", selection: $selectedId) {
+                            ForEach(conference.participantIds, id:\.self) { id in
+                                if id == conference.myId {
+                                    Text("all")
+                                        .font(.system(size: 14))
+                                        .foregroundColor(Color.black)
+                                } else {
+                                    Text(id)
+                                        .font(.system(size: 14))
+                                        .foregroundColor(Color.black)
+                                }
+                            }
+                        }
                     }
                 }
                 .padding(.leading, 8)
