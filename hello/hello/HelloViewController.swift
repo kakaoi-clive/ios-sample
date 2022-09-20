@@ -73,7 +73,8 @@ class HelloViewController: UIViewController {
     // 연결하기 버튼 이벤트
     @IBAction func onButton(_ sender: Any) {
         if self.currentStatus == .disconnected {
-            signIn() { [weak self] code, message in
+            /// 인증은 룸에 접속하기전 이루어져야 합니다. 따라서, 앱의 구현에 따라 인증 위치는 변경될 수 있습니다.
+            ConnectLive.signIn(serviceId: serviceId, serviceSecret: serviceSecret) { [weak self] code, message in
                 if code == 0 {
                     self?.connectRoom(roomId: self?.roomId ?? "")
                 } else {
@@ -83,24 +84,10 @@ class HelloViewController: UIViewController {
 
         } else {
             disconnectRoom()
-            signOut()
+            
+            /// ConnectLive 사용이 완료되면 인증을 해제해 주어야 합니다.
+            ConnectLive.signOut()
         }
-    }
-
-
-
-    /// 인증
-    ///
-    /// 인증은 룸에 접속하기전 이루어져야 합니다. 따라서, 앱의 구현에 따라 인증 위치는 변경될 수 있습니다.
-    func signIn(completion: @escaping (Int, String) -> Void ) {
-        ConnectLive.signIn(serviceId: serviceId, serviceSecret: serviceSecret, completion: completion)
-    }
-
-    /// 인증해제
-    ///
-    /// ConnectLive 사용이 완료되면 인증을 해제해 주어야 합니다.
-    func signOut() {
-        ConnectLive.signOut()
     }
 
 
