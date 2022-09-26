@@ -20,25 +20,27 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Elt-zo-tyM">
                                 <rect key="frame" x="8" y="76" width="398" height="682"/>
                                 <subviews>
-                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8x-Bt-zzS" userLabel="LocalView" customClass="RenderView" customModule="hello" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="398" height="341"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
                                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="SSU-99-kcF" userLabel="RemoteView" customClass="RenderView" customModule="hello" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="349" width="398" height="333"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="398" height="682"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8x-Bt-zzS" userLabel="LocalView" customClass="RenderView" customModule="hello" customModuleProvider="target">
+                                        <rect key="frame" x="219" y="439.5" width="159" height="212.5"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="L8x-Bt-zzS" secondAttribute="height" multiplier="3:4" id="1vY-n0-ztO"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="L8x-Bt-zzS" firstAttribute="leading" secondItem="Elt-zo-tyM" secondAttribute="leading" id="Dbl-8M-QOv"/>
+                                    <constraint firstAttribute="bottom" secondItem="L8x-Bt-zzS" secondAttribute="bottom" constant="30" id="4x3-iT-tbH"/>
                                     <constraint firstItem="SSU-99-kcF" firstAttribute="leading" secondItem="Elt-zo-tyM" secondAttribute="leading" id="Lhx-NR-EeC"/>
                                     <constraint firstAttribute="trailing" secondItem="SSU-99-kcF" secondAttribute="trailing" id="OLh-0O-MPj"/>
                                     <constraint firstAttribute="bottom" secondItem="SSU-99-kcF" secondAttribute="bottom" id="QZI-ob-b07"/>
-                                    <constraint firstItem="L8x-Bt-zzS" firstAttribute="bottom" secondItem="SSU-99-kcF" secondAttribute="top" constant="-8" id="ahd-cT-XQG"/>
-                                    <constraint firstItem="L8x-Bt-zzS" firstAttribute="top" secondItem="Elt-zo-tyM" secondAttribute="top" id="eqX-4g-R9U"/>
-                                    <constraint firstItem="L8x-Bt-zzS" firstAttribute="height" secondItem="Elt-zo-tyM" secondAttribute="height" multiplier="0.5" priority="999" id="t3h-rr-oK9"/>
-                                    <constraint firstAttribute="trailing" secondItem="L8x-Bt-zzS" secondAttribute="trailing" id="y6L-CV-9EB"/>
+                                    <constraint firstItem="SSU-99-kcF" firstAttribute="top" secondItem="Elt-zo-tyM" secondAttribute="top" id="nLW-G9-D6d"/>
+                                    <constraint firstItem="L8x-Bt-zzS" firstAttribute="width" secondItem="Elt-zo-tyM" secondAttribute="width" multiplier="0.4" id="wnO-3V-65O"/>
+                                    <constraint firstAttribute="trailing" secondItem="L8x-Bt-zzS" secondAttribute="trailing" constant="20" id="y6L-CV-9EB"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptT-nU-Wm8">

@@ -120,6 +120,7 @@ class HelloViewController: UIViewController {
         media.start { error in
             if let error = error {
                 // 미디어 시작 오류
+                // 시뮬레이터인 경우 위 설정에서 지정한(test.mov) 파일을 프로젝트에 등록한 후 실행하세요.
                 assertionFailure(error.localizedDescription)
             }
         }
