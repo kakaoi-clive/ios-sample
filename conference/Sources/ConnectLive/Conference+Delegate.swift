@@ -274,6 +274,9 @@ extension Conference: RoomDelegate {
     }
     
     
+    /// 송수신 정보 얻기(베타)
+    ///
+    /// 베타 기능으로 콜백 메쏘드, 파라미터 데이터, 이벤트 발생 간격 등 구성이 변경될 수 있습니다.
     @MainActor
     func onStat(stat: QualityStat) {
         var local: QualitySession?
