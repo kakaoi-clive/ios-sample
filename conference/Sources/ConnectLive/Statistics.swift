@@ -18,69 +18,65 @@ class Statistics: ObservableObject {
     @Published var report: [StatisticsData] = []
 
     @MainActor
-    func update(local: QualitySession?, remote: QualitySession?) {
+    func update(local: LocalQualityStat?, remote: RemoteQualityStat?) {
         var newData: [StatisticsData] = []
 
         if let local = local {
-            for metric in local.metrics {
+            for metric in local.audioMetrics {
                 var log: [String] = []
-
-                let bytesSent = metric.bytesSent ?? 0
-                let packetsSent = metric.packetsSent ?? 0
-
                 log.append("stream:\(metric.streamId )")
-
-                switch metric.type {
-                case .audio:
-                    log.append("bytesSent:\(bytesSent)")
-                    log.append("packetsSent:\(packetsSent)")
-
-                case .video:
-                    log.append("profile:\(metric.profile ?? .empty)")
-                    log.append("bytesSent:\(bytesSent)")
-                    log.append("framesSent:\(metric.framesSent ?? 0)")
-                    log.append("framesEncoded:\(metric.framesEncoded ?? 0)")
-
-                @unknown default:
-                    break
-                }
-
-                let data = StatisticsData(id: metric.streamId,direction: .up, type: metric.type, name: "SEND_\(metric.type.rawValue)", log: log.joined(separator: "\n"))
+                log.append("bytesSent:\(metric.bytesSent)")
+                log.append("packetsSent:\(metric.packetsSent)")
+                let data = StatisticsData(id: metric.streamId,direction: .up, type: .audio, name: "SEND_A", log: log.joined(separator: "\n"))
                 newData.append(data)
+            }
+            
+            for metric in local.videoMetrics {
+                var log: [String] = []
+                log.append("stream:\(metric.streamId)")
+                log.append("profile:\(metric.profile)")
+                log.append("bytesSent:\(metric.bytesSent)")
+                log.append("packetsSent:\(metric.packetsSent)")
+                log.append("framesSent:\(metric.framesSent)")
+                log.append("framesEncoded:\(metric.framesEncoded)")
+                let data = StatisticsData(id: metric.streamId,direction: .up, type: .video, name: "SEND_V", log: log.joined(separator: "\n"))
+                newData.append(data)
+                
             }
         }
 
 
         if let remote = remote {
-            remote.metrics.forEach { metric in
+            remote.audioMetrics.forEach { metric in
                 if metric.streamId == 0 {
                     return
                 }
-
+                
                 var log: [String] = []
-
-                let receiverId = metric.receiverId ?? 0
-                let bytesReceived = metric.bytesReceived ?? 0
-
-                log.append("receiver:\(receiverId)")
+                log.append("participant:\(metric.participantId)")
                 log.append("stream:\(metric.streamId)")
-                log.append("packetLost:\(metric.packetsLost ?? 0)")
-
-                switch metric.type {
-                case .audio:
-                    log.append("bytesReceived:\(bytesReceived)")
-                    log.append("samplesReceived:\(metric.totalSamplesReceived ?? 0)")
-
-                case .video:
-                    log.append("bytesReceived:\(bytesReceived)")
-                    log.append("framesReceived:\(metric.framesReceived ?? 0)")
-                    log.append("framesDecoded:\(metric.framesDecoded ?? 0)")
-
-                @unknown default:
-                    break
+                log.append("receiver:\(metric.receiverId)")
+                log.append("packetLost:\(metric.packetsLost)")
+                log.append("bytesReceived:\(metric.bytesReceived)")
+                log.append("samplesReceived:\(metric.totalSamplesReceived)")
+                let data = StatisticsData(id: metric.streamId, direction: .down, type: .audio, name: "RECV_A", log: log.joined(separator: "\n"))
+                newData.append(data)
+            }
+            
+            remote.videoMetrics.forEach { metric in
+                if metric.streamId == 0 {
+                    return
                 }
-
-                let data = StatisticsData(id: metric.streamId, direction: .down, type: metric.type, name: "RECV_\(metric.type.rawValue)", log: log.joined(separator: "\n"))
+                
+                var log: [String] = []
+                log.append("participant:\(metric.participantId)")
+                log.append("receiver:\(metric.receiverId)")
+                log.append("stream:\(metric.streamId)")
+                log.append("packetLost:\(metric.packetsLost)")
+                log.append("bytesReceived:\(metric.bytesReceived)")
+                log.append("framesReceived:\(metric.framesReceived)")
+                log.append("framesDecoded:\(metric.framesDecoded)")
+                let data = StatisticsData(id: metric.streamId, direction: .down, type: .video, name: "RECV_V", log: log.joined(separator: "\n"))
                 newData.append(data)
             }
         }

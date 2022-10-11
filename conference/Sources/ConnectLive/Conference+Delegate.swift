@@ -279,17 +279,8 @@ extension Conference: RoomDelegate {
     /// 베타 기능으로 콜백 메쏘드, 파라미터 데이터, 이벤트 발생 간격 등 구성이 변경될 수 있습니다.
     @MainActor
     func onStat(stat: QualityStat) {
-        var local: QualitySession?
-        var remote: QualitySession?
         
-        for value in stat.sessions {
-            if value.direction == .up {
-                local = value
-            } else {
-                remote = value
-            }
-        }
-        
-        self.statistics.update(local: local, remote: remote)
+        // 샘플에서는 해당 데이터를 단순하게 텍스트로 출력합니다.
+        self.statistics.update(local: stat.localStat, remote: stat.remoteStat)
     }
 }
