@@ -61,7 +61,7 @@ class HelloViewController: UIViewController {
         // 오디오 세션 설정
         // 모든 앱은 아래와 같이 오디오 세션 설정이 이루어져야 합니다.
         ConnectLive.setAudioSessionConfiguration(category: .playAndRecord,
-                                                 mode: .default,
+                                                 mode: .videoChat,
                                                  options: [.mixWithOthers, .defaultToSpeaker, .allowBluetooth],
                                                  delegate: nil)
 

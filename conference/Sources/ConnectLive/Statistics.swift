@@ -6,11 +6,12 @@
 import Foundation
 import ConnectLiveSDK
 
-struct StatisticsData: Identifiable {
+struct StatisticsData: Hashable {
     var id: Int
     var direction: SessionDirection
     var type: StreamMediaType
     var name: String
+    var profile: String
     var log: String
 }
 
@@ -27,7 +28,7 @@ class Statistics: ObservableObject {
                 log.append("stream:\(metric.streamId )")
                 log.append("bytesSent:\(metric.bytesSent)")
                 log.append("packetsSent:\(metric.packetsSent)")
-                let data = StatisticsData(id: metric.streamId,direction: .up, type: .audio, name: "SEND_A", log: log.joined(separator: "\n"))
+                let data = StatisticsData(id: metric.streamId,direction: .up, type: .audio, name: "SEND_A", profile: "", log: log.joined(separator: "\n"))
                 newData.append(data)
             }
             
@@ -39,7 +40,11 @@ class Statistics: ObservableObject {
                 log.append("packetsSent:\(metric.packetsSent)")
                 log.append("framesSent:\(metric.framesSent)")
                 log.append("framesEncoded:\(metric.framesEncoded)")
-                let data = StatisticsData(id: metric.streamId,direction: .up, type: .video, name: "SEND_V", log: log.joined(separator: "\n"))
+                log.append("width:\(metric.frameWidth)")
+                log.append("height:\(metric.frameHeight)")
+                log.append("fps:\(metric.framesPerSecond)")
+            
+                let data = StatisticsData(id: metric.streamId,direction: .up, type: .video, name: "SEND_V", profile: metric.profile,log: log.joined(separator: "\n"))
                 newData.append(data)
                 
             }
@@ -59,7 +64,7 @@ class Statistics: ObservableObject {
                 log.append("packetLost:\(metric.packetsLost)")
                 log.append("bytesReceived:\(metric.bytesReceived)")
                 log.append("samplesReceived:\(metric.totalSamplesReceived)")
-                let data = StatisticsData(id: metric.streamId, direction: .down, type: .audio, name: "RECV_A", log: log.joined(separator: "\n"))
+                let data = StatisticsData(id: metric.streamId, direction: .down, type: .audio, name: "RECV_A", profile: "", log: log.joined(separator: "\n"))
                 newData.append(data)
             }
             
@@ -76,7 +81,11 @@ class Statistics: ObservableObject {
                 log.append("bytesReceived:\(metric.bytesReceived)")
                 log.append("framesReceived:\(metric.framesReceived)")
                 log.append("framesDecoded:\(metric.framesDecoded)")
-                let data = StatisticsData(id: metric.streamId, direction: .down, type: .video, name: "RECV_V", log: log.joined(separator: "\n"))
+                log.append("width:\(metric.frameWidth)")
+                log.append("height:\(metric.frameHeight)")
+                log.append("fps:\(metric.framesPerSecond)")
+                
+                let data = StatisticsData(id: metric.streamId, direction: .down, type: .video, name: "RECV_V", profile: "", log: log.joined(separator: "\n"))
                 newData.append(data)
             }
         }
@@ -94,10 +103,25 @@ class Statistics: ObservableObject {
                 }
             }
 
-            if $0.type == .video {
-                return true
+            if $0.type != $1.type {
+                if $0.type == .video {
+                    return true
+                }
             }
 
+            if !$0.profile.isEmpty && !$1.profile.isEmpty {
+                if $0.profile == "m" && $1.profile == "h" {
+                    return true
+                }
+                
+                if $0.profile == "h" {
+                    return false
+                }
+                
+                if $0.profile == "l" {
+                    return true
+                }
+            }
             return false
         }
         report = newData

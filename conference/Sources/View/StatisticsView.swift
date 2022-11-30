@@ -31,11 +31,7 @@ struct StatisticsView: View {
 
                 Divider()
 
-                List(stats.report) { stat in
-                    Text("\(stat.name)")
-                    Text("\(stat.log )")
-                        .font(.system(size: 10))
-                }
+                getLogs()
 
             }
             .frame(width: self.width)
@@ -45,6 +41,25 @@ struct StatisticsView: View {
         }
         .transition(.move(edge: .trailing))
         .animation(.easeIn(duration: 0.25))
+    }
+    
+    
+    func getLogs() -> some View {
+        var text: String = ""
+        stats.report.forEach { stat in
+            text.append(stat.name)
+            text.append("\n")
+            text.append(stat.log)
+            text.append("\n\n")
+        }
+        
+        return GeometryReader { geometry in
+            ScrollView {
+                Text("\(text)")
+                    .padding(8)
+                    .frame(width: geometry.size.width, alignment: .leading)
+            }
+        }
     }
 }
 

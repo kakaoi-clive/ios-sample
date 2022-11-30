@@ -13,7 +13,7 @@ struct RemoteGridView: View {
     @State private var currentVideos: [ParticipantVideoItem] = []
 
     private let columns: [GridItem] = [
-        GridItem(.adaptive(minimum: 120, maximum: 180))
+        GridItem(.adaptive(minimum: 160, maximum: 180))
     ]
 
     var body: some View {
@@ -37,7 +37,7 @@ struct RemoteGridView: View {
     @ViewBuilder
     func getView(item: ParticipantVideoItem) -> some View {
         renderer.getView(item: item)
-            .frame(width: 120, height: 120)
+            .frame(width: 160, height: 160)
             .cornerRadius(16)
     }
 

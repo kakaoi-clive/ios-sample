@@ -58,9 +58,11 @@ extension Conference: RoomDelegate {
                     for video in participant.videos.values {
                         user.videos.append(video.id)
 
-                        if video.extraValue.isEmpty {
+                        // 각 플랫폼 샘플마다 기본으로 설정된 extraValue 값이 다를 수 있으므로 플랫폼 샘플간 연동 시 확인 필요
+                        // web 샘플의 경우 extraValue = "camera", "screen" 사용
+                        if video.extraValue != "screen"{
                             user.video = true
-                        } else if video.extraValue == "screen" {
+                        } else {
                             user.screen = true
                         }
                     }

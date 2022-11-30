@@ -67,7 +67,7 @@ class Conference: ObservableObject {
         // ios의 경우 앱에서 마이크를 사용하기 위해 카테고리, 모드 설정이 이루어져야 합니다.
         // 백그라운드, 화면공유에서 오디오가 정상 동작하려면 옵션에 mixWithOthers or duckOthers 가 설정되어야 합니다.
         ConnectLive.setAudioSessionConfiguration(category: .playAndRecord,
-                                                 mode: .default,
+                                                 mode: .videoChat,
                                                  options: [.mixWithOthers, .defaultToSpeaker, .allowBluetooth],
                                                  delegate: nil)
 
@@ -198,7 +198,7 @@ class Conference: ObservableObject {
             switch result {
             case .success():
                 print("[subscribe] 구독 시작")
-
+                
             case .failure(let error):
                 if case let ConnectLiveError.error(code, message) = error {
                     print("[subscribe] 구독 오류, \(code), \(message)")
@@ -296,15 +296,18 @@ class Conference: ObservableObject {
 
 
 
-    /// 비디오 프로파일을 변경하는 예시입니다.
+    /// 비디오 프로파일을 변경을 요청하는 예시입니다.
     ///
-    /// iOS의 경우 프로파일은 고정되어 있어 변경이 불가능하며, 타 플랫폼 참여자의 비디오 프로파일을 변경할 수 있습니다.
-    func changeVideoProfile(participantId: String, profile: VideoProfileType) {
+    func changeVideoProfile(participantId: String, videoId: Int, profile: VideoProfileType) {
         guard let room = self.room else { return }
-        if let participant = room.remoteParticipants[participantId] {
-            if let remoteVideo = participant.videos.first(where: { $0.value.extraValue != "screen" })?.value {
-                if remoteVideo.profile != .empty {
-                    try? remoteVideo.setProfile(profile)
+        
+        if let participant = room.remoteParticipants[participantId], let remoteVideo = participant.videos[videoId] {
+            if remoteVideo.profile != .empty {
+                do {
+                    try remoteVideo.setProfile(profile)
+                } catch {
+                    // 변경 요청 실패
+                    print("[Conference.changeVideoProfile] error:\(error.localizedDescription)")
                 }
             }
         }
