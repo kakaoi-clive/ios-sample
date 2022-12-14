@@ -47,8 +47,6 @@ struct StatisticsView: View {
     func getLogs() -> some View {
         var text: String = ""
         stats.report.forEach { stat in
-            text.append(stat.name)
-            text.append("\n")
             text.append(stat.log)
             text.append("\n\n")
         }
